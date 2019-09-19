@@ -27,19 +27,20 @@ int main() {
 
     // unit test for merge
     vector<int> test = {0, 2000, -30, 726}; //test vector
-    vector<int> Tmp_test = {};
-    cout << "Testing started" << endl;
+    vector<int> expected = {-30, 0, 726, 2000};
+    cout << endl << "Testing started" << endl;
     cout << "{0, 2000, -30, 726}, expecting {-30, 0, 726, 2000}, got:"; //print expected output
 
-    mergeSort(test, Tmp_test, 0, (test.size() - 1));
+    mergeSortedLists(test, expected, 0, (test.size() - 1)/2, (test.size() - 1));
     for(int i = 0; i < test.size(); i++) {
         cout << test.at(i) << '\t';
     }
     cout << endl; //print test output
 
     for(int i = 1; i < test.size(); i++) { //check test vector using assert
-        assert(test.at(i-1) <= test.at(i));
+        assert(test.at(i-1) == expected.at(i-1));
     }
+    cout << "Test passed." << endl << endl;
 
     // initialize and print input
     cout << "Initial values of the vector:" << endl;
