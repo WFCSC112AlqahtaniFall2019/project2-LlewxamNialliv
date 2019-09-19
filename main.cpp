@@ -21,18 +21,15 @@ int main() {
     vector<int> t(length);  // temporary workspace
 
     // unit test for merge
-    vector<int> test = {0, 2000, -30, 726};
+    vector<int> test = {0, 2000, -30, 726}; //test vector
     vector<int> Tmp_test = {};
     cout << "Testing started" << endl;
-    cout << "{0, 2000, -30, 726}, expecting {-30, 0, 726, 2000}, got:";
+    cout << "{0, 2000, -30, 726}, expecting {-30, 0, 726, 2000}, got:"; //print expected output
     mergeSort(test, Tmp_test, 0, (test.size() - 1));
     for(int i = 0; i < test.size(); i++) {
         cout << test.at(i) << '\t';
     }
     cout << endl;
-
-
-    /* your code here */
 
     // initialize and print input
     cout << "Initial values of the vector:" << endl;
@@ -43,7 +40,6 @@ int main() {
     cout << endl;
 
     // sort v
-    /* your code here */
     mergeSort(v, t, 0, (v.size() - 1));
 
     // print output
@@ -61,13 +57,12 @@ int main() {
     return 0;
 }
 
-/* your code here */
 void mergeSort(vector<int>& a, vector<int>& tmp, int left, int right){
-    if(left < right){
-        int middle = (right + left)/2;
+    int middle = (right + left)/2;
 
+    if(left < right){
         mergeSort(a,tmp, left, middle);
-        mergeSort(a, tmp,middle + 1, right);
+        mergeSort(a, tmp,middle + 1, right); //divide vectors
 
         mergeSortedLists(a, tmp, left, middle, right); //merge vectors
     }
