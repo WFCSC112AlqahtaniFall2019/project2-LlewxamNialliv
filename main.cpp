@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <assert.h>
 using namespace std;
 
 // function declarations
@@ -10,14 +11,31 @@ int main() {
 
     // get input: first is random seed, second is vector length
     int seed, length;
-    cin >> seed >> length;
+    cout << "Please enter the seed for this run:";
+    cin >> seed;
+    cout << "Please enter the desired vector length:";
+    cin >> length;
     srand(seed);
 
     vector<int> v(length);  // vector to be sorted
     vector<int> t(length);  // temporary workspace
+
     // unit test for merge
+    vector<int> test = {0, 2000, -30, 726};
+    vector<int> Tmp_test = {};
+    cout << "Testing started" << endl;
+    cout << "{0, 2000, -30, 726}, expecting {-30, 0, 726, 2000}, got:";
+    mergeSort(test, Tmp_test, 0, (test.size() - 1));
+    for(int i = 0; i < test.size(); i++) {
+        cout << test.at(i) << '\t';
+    }
+    cout << endl;
+
+
     /* your code here */
+
     // initialize and print input
+    cout << "Initial values of the vector:" << endl;
     for(int i = 0; i < v.size(); i++) {
         v.at(i) = rand() % 100;
         cout << v.at(i) << '\t';
@@ -26,8 +44,10 @@ int main() {
 
     // sort v
     /* your code here */
+    mergeSort(v, t, 0, (v.size() - 1));
 
     // print output
+    cout << "Sorted vector is:" << endl;
     for(int i = 0; i < v.size(); i++) {
         cout << v.at(i) << '\t';
     }
@@ -42,3 +62,68 @@ int main() {
 }
 
 /* your code here */
+void mergeSort(vector<int>& a, vector<int>& tmp, int left, int right){
+    if(left < right){
+        int middle = (right + left)/2;
+
+        mergeSort(a,tmp, left, middle);
+        mergeSort(a, tmp,middle + 1, right);
+
+        mergeSortedLists(a, tmp, left, middle, right); //merge vectors
+    }
+    else{ //base case of vector length 1
+        return;
+    }
+}
+
+void mergeSortedLists(vector<int>& a, vector<int>& tmp, int left, int middle, int right){
+    int i, j, k; //variables for for loops
+    int LeftSize = middle - left + 1;
+    int RightSize = right - middle; //Size of temporary vectors
+
+    int Left[LeftSize];
+    int Right[RightSize]; //declare temporary vectors
+
+    //copy data to temporary vectors
+    for (i = 0; i < LeftSize; i++){
+        Left[i] = a[left + i];
+    }
+    for (j = 0; j < RightSize; j++){
+        Right[j] = a[middle + 1 + j];
+    }
+
+    i = 0; // Initial index of first temporary vector
+    j = 0; // Initial index of second temporary vector
+    k = left; // Initial index of merged vector
+
+    //assign merged vector with elements from both temporary vectors sorted by magnitude ascending
+    while (i < LeftSize && j < RightSize)
+    {
+        if (Left[i] <= Right[j])
+        {
+            a[k] = Left[i];
+            i++;
+        }
+        else
+        {
+            a[k] = Right[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (j < RightSize) // if the Left temporary vector is reached to end first
+    {
+        a[k] = Right[j];
+        j++;
+        k++;
+    }
+
+    while (i < LeftSize) // if the Right temporary vector is reached to end first
+    {
+        a[k] = Left[i];
+        i++;
+        k++;
+    }
+}
+
