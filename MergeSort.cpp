@@ -30,11 +30,16 @@ int main() {
     vector<int> Tmp_test = {};
     cout << "Testing started" << endl;
     cout << "{0, 2000, -30, 726}, expecting {-30, 0, 726, 2000}, got:"; //print expected output
+
     mergeSort(test, Tmp_test, 0, (test.size() - 1));
     for(int i = 0; i < test.size(); i++) {
         cout << test.at(i) << '\t';
     }
-    cout << endl;
+    cout << endl; //print test output
+
+    for(int i = 1; i < test.size(); i++) { //check test vector using assert
+        assert(test.at(i-1) <= test.at(i));
+    }
 
     // initialize and print input
     cout << "Initial values of the vector:" << endl;
