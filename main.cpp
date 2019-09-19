@@ -1,3 +1,8 @@
+//project: mergesort
+//author: Zexuan Huang
+//course: CSC 112
+//professor: Sarra Alqahtani
+
 #include <iostream>
 #include <vector>
 #include <assert.h>
